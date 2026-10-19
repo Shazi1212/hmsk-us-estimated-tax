@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>US quarterly estimated tax calculator for freelancers (2026)</title>
+<meta name="description" content="Quarterly estimated tax for US freelancers: 2026 self-employment tax, federal income tax, QBI, safe-harbor amounts and the next due date. Imports paid invoices. Runs in your browser.">
+<meta name="theme-color" content="#0B0F0C">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/MartianMono.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="app.css?v=1">
+</head>
+<body>
+
+<nav class="strip" aria-label="Site">
+  <div class="in">
+    <a class="home" id="lnkHome" href="/tools/us-estimated-tax/" data-t="back">← hmsk.life</a>
+    <span class="sp"></span>
+    <button type="button" class="lang" id="langBtn" data-t="langSwitch">DE</button>
+    <a id="lnkImprint" href="/imprint/" data-t="imprint">Imprint</a>
+    <a id="lnkPrivacy" href="/privacy/" data-t="privacy">Privacy</a>
+  </div>
+</nav>
+
+<header class="head wrap">
+  <p class="cmd"><span class="ps">$</span> us-estimated-tax --year 2026</p>
+  <h1 data-t="h1">How much estimated tax do you owe this quarter?</h1>
+  <p class="sub" data-t="sub"></p>
+</header>
+
+<main class="wrap layout">
+  <form id="form" class="form" novalidate autocomplete="off">
+
+    <fieldset>
+      <legend data-t="sImport">--import</legend>
+      <p class="hint top" data-t="importHint"></p>
+      <div class="cta">
+        <button type="button" class="btn btn--ghost sm" id="importLocal" data-t="importLocal">Use paid invoices from HMSK Invoice</button>
+        <label class="btn btn--ghost sm file"><span data-t="importFile">Load an Invoice backup (.json)</span><input type="file" id="importFile" accept=".json,application/json"></label>
+      </div>
+      <div id="importOut" class="imp" hidden></div>
+    </fieldset>
+
+    <fieldset>
+      <legend data-t="sBusiness">--business</legend>
+      <label for="status" data-t="status">Filing status</label>
+      <select id="status" name="status">
+        <option value="single" data-t="single"></option>
+        <option value="mfj" data-t="mfj"></option>
+        <option value="mfs" data-t="mfs"></option>
+        <option value="hoh" data-t="hoh"></option>
+      </select>
+      <div class="grid2">
+        <div><label for="gross" data-t="gross">Business income 2026</label><div class="money"><input id="gross" name="gross" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+        <div><label for="expenses" data-t="expenses">Business expenses</label><div class="money"><input id="expenses" name="expenses" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+      </div>
+      <p class="hint" data-t="grossHint"></p>
+      <label class="chk"><input type="checkbox" id="qbi" name="qbi"> <span data-t="qbi"></span></label>
+    </fieldset>
+
+    <fieldset>
+      <legend data-t="sOther">--other-income</legend>
+      <div class="grid2">
+        <div><label for="w2" data-t="w2">W-2 wages</label><div class="money"><input id="w2" name="w2" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+        <div><label for="withholding" data-t="withholding">Federal tax withheld</label><div class="money"><input id="withholding" name="withholding" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+      </div>
+      <label for="other" data-t="other">Other taxable income</label>
+      <div class="money"><input id="other" name="other" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div>
+      <p class="hint" data-t="otherHint"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend data-t="sDeductions">--deductions</legend>
+      <label for="adjustments" data-t="adjustments">Adjustments to income</label>
+      <div class="money"><input id="adjustments" name="adjustments" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div>
+      <p class="hint" data-t="adjustmentsHint"></p>
+      <div class="grid2">
+        <div><label for="itemized" data-t="itemized">Itemized deductions</label><div class="money"><input id="itemized" name="itemized" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+        <div><label for="credits" data-t="credits">Tax credits</label><div class="money"><input id="credits" name="credits" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+      </div>
+      <p class="hint" id="stdHint"></p>
+    </fieldset>
+
+    <fieldset>
+      <legend data-t="sPayments">--payments</legend>
+      <label for="paid" data-t="paid">Estimated payments already made for 2026</label>
+      <div class="money"><input id="paid" name="paid" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div>
+      <div class="grid2">
+        <div><label for="priorTax" data-t="priorTax">2025 total tax</label><div class="money"><input id="priorTax" name="priorTax" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+        <div><label for="priorAgi" data-t="priorAgi">2025 AGI</label><div class="money"><input id="priorAgi" name="priorAgi" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
+      </div>
+      <p class="hint" data-t="priorHint"></p>
+    </fieldset>
+  </form>
+
+  <section class="result" id="result" aria-live="polite" aria-labelledby="rTitle">
+    <div class="term">
+      <div class="term__bar"><i></i><i></i><i></i><span id="rTitle" data-t="rTitle">$ 1040-es --next</span></div>
+      <div class="term__body">
+        <p class="lbl" id="nextLabel"></p>
+        <p class="big"><span id="nextAmount">0</span></p>
+        <p class="vat" id="nextNote"></p>
+        <dl class="kv">
+          <div><dt data-t="kTotal">Total 2026 tax (estimate)</dt><dd><b id="kTotal"></b><small id="kEff"></small></dd></div>
+          <div><dt data-t="kSe">Self-employment tax</dt><dd><b id="kSe"></b></dd></div>
+          <div><dt data-t="kIncome">Federal income tax</dt><dd><b id="kIncome"></b><small id="kMarg"></small></dd></div>
+        </dl>
+
+        <h2 class="h3" data-t="schedTitle">2026 installments (safe harbor)</h2>
+        <table class="tbl sched" id="schedTbl"><tbody></tbody></table>
+        <p class="note" id="shNote"></p>
+
+        <h2 class="h3" data-t="nextYearTitle">2027: safe harbor from this estimate</h2>
+        <p class="whatif" id="nextYearOut"></p>
+
+        <div class="cta">
+          <a class="btn btn--amber" id="lnkInvoice" href="/tools/invoice/" data-t="nextInvoice">Write your invoices for free →</a>
+          <a class="btn btn--ghost" id="lnkNotify" href="/?topic=us-estimated-tax#contact" data-t="notify">Get notified when the 2027 figures are in</a>
+        </div>
+      </div>
+    </div>
+
+    <details class="year" open>
+      <summary data-t="calcTitle">How the estimate is calculated</summary>
+      <table class="tbl" id="calcTbl"><tbody></tbody></table>
+    </details>
+
+    <div class="tools">
+      <button type="button" class="btn btn--ghost sm" id="shareBtn" data-t="share">Copy share link</button>
+      <button type="button" class="btn btn--ghost sm" id="printBtn" data-t="print">Print</button>
+      <button type="button" class="btn btn--ghost sm" id="resetBtn" data-t="reset">Reset</button>
+    </div>
+  </section>
+</main>
+
+<section class="wrap sources" aria-labelledby="srcTitle">
+  <h2 id="srcTitle" class="h2" data-t="srcTitle">$ cat sources-and-assumptions.md</h2>
+  <p class="disclaimer" data-t="disclaimer"></p>
+  <h3 class="h3" data-t="figTitle">2026 figures used</h3>
+  <table class="tbl figs" id="figTbl"><tbody></tbody></table>
+  <ul id="assumptions"></ul>
+  <h3 class="h3" data-t="srcList">Sources</h3>
+  <ul id="sources"></ul>
+</section>
+
+<footer class="wrap foot">
+  <p>MIT · <a id="lnkHome2" href="/tools/us-estimated-tax/">hmsk.life</a></p>
+</footer>
+
+<script type="module" src="app.js?v=1"></script>
+</body>
+</html>

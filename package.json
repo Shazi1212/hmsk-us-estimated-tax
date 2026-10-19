@@ -1,0 +1,12 @@
+{
+  "name": "hmsk-us-estimated-tax",
+  "version": "1.0.0",
+  "description": "US quarterly estimated tax calculator for freelancers (2026): SE tax, federal income tax, QBI, safe harbor, due dates.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/",
+    "start": "python3 -m http.server 8080 --directory public"
+  }
+}
