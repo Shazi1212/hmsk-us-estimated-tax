@@ -5,10 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>US quarterly estimated tax calculator for freelancers (2026)</title>
 <meta name="description" content="Quarterly estimated tax for US freelancers: 2026 self-employment tax, federal income tax, QBI, safe-harbor amounts and the next due date. Imports paid invoices. Runs in your browser.">
-<meta name="theme-color" content="#0B0F0C">
+<meta name="theme-color" content="#EFF1F2">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
-<link rel="preload" href="/assets/fonts/MartianMono.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="app.css?v=1">
+<link rel="preload" href="fonts/newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="letterpress.css?v=2">
+<link rel="stylesheet" href="app.css?v=2">
 </head>
 <body>
 
@@ -23,7 +24,7 @@
 </nav>
 
 <header class="head wrap">
-  <p class="cmd"><span class="ps">$</span> us-estimated-tax --year 2026</p>
+  <p class="eyebrow">US Estimated Tax</p>
   <h1 data-t="h1">How much estimated tax do you owe this quarter?</h1>
   <p class="sub" data-t="sub"></p>
 </header>
@@ -32,7 +33,7 @@
   <form id="form" class="form" novalidate autocomplete="off">
 
     <fieldset>
-      <legend data-t="sImport">--import</legend>
+      <legend data-t="sImport">Import invoices</legend>
       <p class="hint top" data-t="importHint"></p>
       <div class="cta">
         <button type="button" class="btn btn--ghost sm" id="importLocal" data-t="importLocal">Use paid invoices from HMSK Invoice</button>
@@ -42,7 +43,7 @@
     </fieldset>
 
     <fieldset>
-      <legend data-t="sBusiness">--business</legend>
+      <legend data-t="sBusiness">Business</legend>
       <label for="status" data-t="status">Filing status</label>
       <select id="status" name="status">
         <option value="single" data-t="single"></option>
@@ -59,7 +60,7 @@
     </fieldset>
 
     <fieldset>
-      <legend data-t="sOther">--other-income</legend>
+      <legend data-t="sOther">Other income</legend>
       <div class="grid2">
         <div><label for="w2" data-t="w2">W-2 wages</label><div class="money"><input id="w2" name="w2" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
         <div><label for="withholding" data-t="withholding">Federal tax withheld</label><div class="money"><input id="withholding" name="withholding" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div></div>
@@ -70,7 +71,7 @@
     </fieldset>
 
     <fieldset>
-      <legend data-t="sDeductions">--deductions</legend>
+      <legend data-t="sDeductions">Deductions</legend>
       <label for="adjustments" data-t="adjustments">Adjustments to income</label>
       <div class="money"><input id="adjustments" name="adjustments" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div>
       <p class="hint" data-t="adjustmentsHint"></p>
@@ -82,7 +83,7 @@
     </fieldset>
 
     <fieldset>
-      <legend data-t="sPayments">--payments</legend>
+      <legend data-t="sPayments">Payments</legend>
       <label for="paid" data-t="paid">Estimated payments already made for 2026</label>
       <div class="money"><input id="paid" name="paid" type="number" inputmode="decimal" min="0" step="100"><span>$</span></div>
       <div class="grid2">
@@ -95,7 +96,7 @@
 
   <section class="result" id="result" aria-live="polite" aria-labelledby="rTitle">
     <div class="term">
-      <div class="term__bar"><i></i><i></i><i></i><span id="rTitle" data-t="rTitle">$ 1040-es --next</span></div>
+      <div class="term__bar"><span id="rTitle" data-t="rTitle">Your next payment</span></div>
       <div class="term__body">
         <p class="lbl" id="nextLabel"></p>
         <p class="big"><span id="nextAmount">0</span></p>
@@ -134,7 +135,7 @@
 </main>
 
 <section class="wrap sources" aria-labelledby="srcTitle">
-  <h2 id="srcTitle" class="h2" data-t="srcTitle">$ cat sources-and-assumptions.md</h2>
+  <h2 id="srcTitle" class="h2" data-t="srcTitle">Sources and assumptions</h2>
   <p class="disclaimer" data-t="disclaimer"></p>
   <h3 class="h3" data-t="figTitle">2026 figures used</h3>
   <table class="tbl figs" id="figTbl"><tbody></tbody></table>
@@ -147,6 +148,6 @@
   <p>MIT · <a id="lnkHome2" href="/tools/us-estimated-tax/">hmsk.life</a></p>
 </footer>
 
-<script type="module" src="app.js?v=1"></script>
+<script type="module" src="app.js?v=2"></script>
 </body>
 </html>

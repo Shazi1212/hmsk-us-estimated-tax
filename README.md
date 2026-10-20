@@ -44,7 +44,7 @@ Tests check the brackets against the cumulative amounts printed in Rev. Proc. 20
 | `public/i18n.js` | English and German texts |
 | `public/app.js`, `index.html`, `app.css` | the UI |
 
-To self-host, set `LINK_BASE` in `public/config.js` if the top-strip links should point somewhere other than hmsk.life. The invoice import from browser storage only works when both tools run on the same origin; the backup file works everywhere. Fonts (Martian Mono, Geist; SIL Open Font License) are in `public/assets/fonts/`.
+To self-host, set `LINK_BASE` in `public/config.js` if the top-strip links should point somewhere other than hmsk.life. The invoice import from browser storage only works when both tools run on the same origin; the backup file works everywhere. Fonts (Newsreader, Public Sans; SIL Open Font License) are in `public/fonts/`; the shared hmsk.life look is in `public/letterpress.css`.
 
 ## Updating for a new year
 
