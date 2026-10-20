@@ -82,7 +82,7 @@ function applyTexts() {
   $('#lnkImprint').href = base + (de ? '/impressum/' : '/imprint/');
   $('#lnkPrivacy').href = base + (de ? '/datenschutz/' : '/privacy/');
   $('#lnkInvoice').href = base + (de ? '/de/tools/invoice/' : '/tools/invoice/');
-  $('#lnkNotify').href = base + (de ? '/de/?topic=us-estimated-tax#contact' : '/?topic=us-estimated-tax#contact');
+  $('#lnkNotify').href = base + (de ? '/de/newsletter/?topic=us-estimated-tax' : '/subscribe/?topic=us-estimated-tax');
   $('#figTbl tbody').innerHTML = T.figs.map(([k, v, s]) =>
     `<tr><td>${esc(k)}</td><td class="m"><a href="${esc(SOURCES[s])}" rel="noopener" target="_blank">${esc(v)}</a></td></tr>`).join('');
   $('#assumptions').innerHTML = T.assumptions.map(a => `<li>${esc(a)}</li>`).join('');
